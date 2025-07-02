@@ -7,7 +7,8 @@ engine = create_engine("sqlite:///finance.db")
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 
-# Table structure
+# Models
+
 class Expense(Base):
     __tablename__ = "expenses"
     id = Column(Integer, primary_key=True)
@@ -15,5 +16,20 @@ class Expense(Base):
     category = Column(String)
     date = Column(Date, default=datetime.date.today)
 
-# Create tables
+class Budget(Base):
+    __tablename__ = "budgets"
+    id = Column(Integer, primary_key=True)
+    month = Column(String)
+    year = Column(Integer)
+    amount = Column(Float)
+
+class Income(Base):
+    __tablename__ = "incomes"
+    id = Column(Integer, primary_key=True)
+    amount = Column(Float)
+    source = Column(String)
+    month = Column(String)
+    year = Column(Integer)
+
+# Create tables (if not exist)
 Base.metadata.create_all(engine)
